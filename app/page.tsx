@@ -66,7 +66,7 @@ export default function TitanGamerLP() {
         >
           <motion.div animate={{ y: [-10, 10, -10] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }} className="relative w-full flex justify-center">
             <div className="absolute top-[50%] w-[70%] h-[30%] bg-gradient-to-r from-fuchsia-500/30 via-orange-500/20 to-transparent blur-[100px] pointer-events-none" />
-            <Image src="/laptop2.png" alt="TitanPro X-14" width={1400} height={900} quality={100} className="drop-shadow-[0_40px_60px_rgba(0,0,0,0.8)] object-contain scale-100 lg:scale-105" priority />
+            <Image src="/titan-gamer-lp/laptop2.png" alt="TitanPro X-14" width={1400} height={900} quality={100} className="drop-shadow-[0_40px_60px_rgba(0,0,0,0.8)] object-contain scale-100 lg:scale-105" priority />
           </motion.div>
         </motion.div>
 
