@@ -1,57 +1,66 @@
-# ⚡ TitanGamer X-Pro | Premium Landing Page
+# TITANGAMER X-PRO | Premium Hardware Landing Page
 
 <p align="center">
   <img src="./public/cover.png" alt="Capa TitanGamer" width="100%">
 </p>
 
-> Desenvolvi essa Landing Page para simular o lançamento de um notebook gamer de altíssimo nível. O foco aqui foi brincar com o visual, testar animações fluidas e montar uma estrutura visual focada 100% em conversão e experiência do usuário (UX).
+> Uma experiência visual de alta performance para hardware premium, moldada com Next.js e Framer Motion.
 
 ---
 
-## 💻 Sobre o Projeto
+## 📖 Sobre
+O **TitanGamer X-Pro** foi desenvolvido para romper a barreira das Landing Pages estáticas. O objetivo principal foi criar uma interface que transmitisse a sensação de "força bruta" e tecnologia de ponta, utilizando animações fluidas e uma estética Neon/Glassmorphism.
 
-A ideia do **TitanGamer X-Pro** era sair do básico e criar algo que passasse a mesma sensação de "força bruta" de um hardware premium. Construí a interface do zero, pensando em como o design poderia destacar os detalhes do produto usando as ferramentas mais recentes do ecossistema React. É um projeto focado em front-end, onde o desafio principal foi manter a performance lá em cima, mesmo com vários elementos visuais pesados.
+Neste projeto, foquei em como manter a performance (60fps) em uma página com múltiplos elementos visuais pesados, garantindo que a experiência do usuário fosse imersiva tanto no desktop quanto no mobile.
 
----
-
-## 📱 Responsividade: Web & Mobile
-
-O layout foi pensado no modelo *Mobile First*. Ninguém quer ver um site quebrado no celular, então garanti que o design se adapte perfeitamente desde telas de smartphones até monitores ultrawide, sem perder o charme do neon e dos grids.
-
+### 🎥 Demonstração em Movimento
 <p align="center">
-  <img src="./public/desktop-preview.png" alt="Preview Desktop" width="75%">
-  &nbsp;&nbsp;
-  <img src="./public/mobile-preview.png" alt="Preview Mobile" width="20%">
+  <img src="./public/demo.gif" alt="Demonstração do TitanGamer" width="100%">
 </p>
 
 ---
 
-## ✨ Principais Destaques
-
-A página está cheia de detalhes e micro-interações para prender a atenção de quem navega:
-
-* **🚀 Efeito Parallax 3D:** O notebook reage ao scroll da página, criando uma ilusão de profundidade super bacana usando a engine do Framer Motion.
-* **💎 Glassmorphism e Neon UI:** Construí os cards e a navegação brincando com desfoque de fundo (backdrop-blur) sobre gradientes fortes (fúcsia e laranja). Dá aquela vibe clássica de iluminação RGB.
-* **🖱️ Hover e Magnetismo:** Botões de CTA (Call to Action) e os cards de *features* têm pequenas animações magnéticas e brilhos que acompanham o mouse para incentivar o clique.
-* **📱 Navbar Dinâmica:** O menu do topo é adaptativo e ajusta o fundo e o desfoque de acordo com o scroll da página, sem atrapalhar a visão do conteúdo.
+## 🛠 Tecnologias
+Stack escolhida para garantir fidelidade visual e performance extrema:
+* **Framework:** Next.js 14 (App Router)
+* **UI Engine:** React.js & Tailwind CSS v4
+* **Motion:** Framer Motion (Física de scroll e Parallax)
+* **Icons:** Lucide React
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
-
-A stack foi escolhida a dedo para segurar os 60fps nas animações e manter o código bem organizado:
-
-* **Next.js 14** (App Router)
-* **React.js**
-* **Tailwind CSS v4** (Para aquela estilização utilitária rápida e sem dor de cabeça)
-* **Framer Motion** (Responsável pela física e animações de scroll)
-* **Lucide React** (Ícones leves e bonitos)
+## ✨ Funcionalidades e Destaques
+* **🚀 Efeito Parallax 3D:** O hardware reage ao scroll, criando profundidade visual imersiva.
+* **💎 Neon & Glassmorphism:** Cards construídos com backdrop-blur e iluminação RGB simulada.
+* **🖱️ Interações Magnéticas:** Botões de CTA e cards de features com animações de atração ao mouse.
+* **📱 Navbar Adaptativa:** Menu inteligente que ajusta opacidade e desfoque dinamicamente.
 
 ---
 
-## ⚙️ Rodando o projeto localmente
+## 📱 Experiência Responsiva
+Desenvolvido sob a filosofia **Mobile First**, o projeto entrega uma interface consistente desde smartphones de entrada até monitores Ultrawide.
 
-Quer testar a fluidez das animações no seu PC? É só seguir o padrão:
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Visual Desktop</b></td>
+      <td align="center"><b>Visual Mobile</b></td>
+    </tr>
+    <tr>
+      <td>
+        <img src="./public/desktop-preview.png" alt="preview-desktop" width="600">
+      </td>
+      <td>
+        <img src="./public/mobile-preview.png" alt="preview-mobile" width="200">
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🚀 Instalação
+Siga o passo a passo para rodar o ambiente de desenvolvimento localmente:
 
 ```bash
 # 1. Clone o repositório
