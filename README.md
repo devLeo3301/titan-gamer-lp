@@ -4,58 +4,45 @@
   <img src="./public/cover.png" alt="Capa TitanGamer" width="100%">
 </p>
 
-> Uma experiência visual de alta performance para hardware premium, moldada com Next.js e Framer Motion.
+> Uma imersão visual de alta performance para hardware entusiasta, moldada com Next.js e engenharia de animação avançada.
 
 ---
 
 ## 📖 Sobre
-O **TitanGamer X-Pro** foi desenvolvido para romper a barreira das Landing Pages estáticas. O objetivo principal foi criar uma interface que transmitisse a sensação de "força bruta" e tecnologia de ponta, utilizando animações fluidas e uma estética Neon/Glassmorphism.
+O **TitanGamer X-Pro** foi projetado para elevar o padrão de Landing Pages de hardware. O objetivo foi criar uma interface que não apenas mostrasse um produto, mas transmitisse a sensação de potência e tecnologia de ponta através de uma estética *Neon-Cyber* e *Glassmorphism*.
 
-Neste projeto, foquei em como manter a performance (60fps) em uma página com múltiplos elementos visuais pesados, garantindo que a experiência do usuário fosse imersiva tanto no desktop quanto no mobile.
-
-### 🎥 Demonstração em Movimento
-<p align="center">
-  <img src="./public/demo.gif" alt="Demonstração do TitanGamer" width="100%">
-</p>
+O maior desafio técnico foi manter a fluidez de 60 FPS (quadros por segundo) enquanto múltiplos efeitos de parallax e filtros de desfoque de fundo (backdrop-blur) são processados simultaneamente durante o scroll.
 
 ---
 
 ## 🛠 Tecnologias
-Stack escolhida para garantir fidelidade visual e performance extrema:
+Stack selecionada para garantir fidelidade visual absoluta e performance extrema:
 * **Framework:** Next.js 14 (App Router)
-* **UI Engine:** React.js & Tailwind CSS v4
-* **Motion:** Framer Motion (Física de scroll e Parallax)
-* **Icons:** Lucide React
+* **Estilização:** Tailwind CSS v4 (Design System customizado)
+* **Animações:** Framer Motion (Física de scroll e Parallax 3D)
+* **Ícones:** Lucide React
 
 ---
 
-## ✨ Funcionalidades e Destaques
-* **🚀 Efeito Parallax 3D:** O hardware reage ao scroll, criando profundidade visual imersiva.
-* **💎 Neon & Glassmorphism:** Cards construídos com backdrop-blur e iluminação RGB simulada.
-* **🖱️ Interações Magnéticas:** Botões de CTA e cards de features com animações de atração ao mouse.
-* **📱 Navbar Adaptativa:** Menu inteligente que ajusta opacidade e desfoque dinamicamente.
+## 🖥️ Experiência Desktop (Showcase)
+Para a versão Desktop, foquei na exploração da largura total da tela (Ultrawide support). Implementei um sistema de profundidade onde os componentes do hardware reagem de forma assimétrica ao scroll do usuário, criando um efeito de "explosão controlada" do produto.
+
+![preview-desktop](./public/desktop-preview.png)
 
 ---
 
-## 📱 Experiência Responsiva
-Desenvolvido sob a filosofia **Mobile First**, o projeto entrega uma interface consistente desde smartphones de entrada até monitores Ultrawide.
+## 📱 Estratégia Mobile-First
+No mobile, a narrativa foi adaptada para a verticalidade. Substituí efeitos magnéticos de mouse por interações baseadas em toque e otimizei o peso das animações para garantir que a experiência seja suave mesmo em dispositivos com processamento limitado. O layout utiliza `Snap Scroll` para garantir que o usuário sempre pare nos pontos de conversão principais.
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"><b>Visual Desktop</b></td>
-      <td align="center"><b>Visual Mobile</b></td>
-    </tr>
-    <tr>
-      <td>
-        <img src="./public/desktop-preview.png" alt="preview-desktop" width="600">
-      </td>
-      <td>
-        <img src="./public/mobile-preview.png" alt="preview-mobile" width="200">
-      </td>
-    </tr>
-  </table>
-</div>
+![preview-mobile](./public/mobile-preview.png)
+
+---
+
+## ✨ Destaques e Funcionalidades
+* **🚀 Parallax de Hardware:** Decomposição visual do produto durante a rolagem da página.
+* **💎 Glassmorphism Premium:** Interfaces com múltiplas camadas de transparência e reflexos neon.
+* **🖱️ Micro-interações Magnéticas:** Botões e elementos de UI que reagem à proximidade do cursor.
+* **📱 UI Adaptativa:** Navegação que altera sua densidade visual baseada na velocidade do scroll.
 
 ---
 
