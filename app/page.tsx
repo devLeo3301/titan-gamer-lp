@@ -3,11 +3,14 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
-import { Cpu, Monitor, Zap, Battery, ChevronRight, Wind, Star, Fingerprint, Wifi, Shield, Crosshair, Swords, Trophy, Gift, Package, CheckCircle2, ChevronDown } from 'lucide-react';
+import { Cpu, Monitor, Zap, Battery, ChevronRight, Wind, Star, Fingerprint, Wifi, Shield, Crosshair, Swords, Trophy, Gift, Package, CheckCircle2, ChevronDown, Loader2 } from 'lucide-react';
 
 export default function TitanGamerLP() {
   const containerRef = useRef(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  
+  // Estado para simular o carregamento do botão de compra
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -24,6 +27,24 @@ export default function TitanGamerLP() {
     { question: "É possível fazer upgrade de RAM e SSD?", answer: "Totalmente. Diferente da concorrência, o TitanPro não solda componentes críticos. Você tem acesso a 2 slots SO-DIMM DDR5 (suporta até 96GB) e 2 slots M.2 PCIe Gen5 para armazenamento infinito." },
   ];
 
+  // Função para rolagem suave até a seção desejada
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Função que simula o processo de checkout
+  const handleCheckout = () => {
+    setIsCheckingOut(true);
+    // Simula um tempo de resposta de API (1.5 segundos)
+    setTimeout(() => {
+      setIsCheckingOut(false);
+      alert("✅ Ambiente de Portfólio: Redirecionamento para o gateway de pagamento simulado com sucesso!");
+    }, 1500);
+  };
+
   return (
     <main ref={containerRef} className="relative min-h-screen bg-[#050505] text-zinc-50 overflow-x-hidden font-sans selection:bg-fuchsia-500/30">
       
@@ -37,7 +58,7 @@ export default function TitanGamerLP() {
       {/* ================= FLOATING NAVBAR ================= */}
       <div className="fixed top-6 inset-x-0 w-full z-50 flex justify-center px-4 pointer-events-none">
         <nav className="w-full max-w-4xl bg-zinc-950/70 backdrop-blur-2xl border border-white/10 rounded-full px-2 py-2 flex items-center justify-between shadow-2xl pointer-events-auto">
-          <div className="flex items-center gap-2 pl-4 group cursor-pointer">
+          <div className="flex items-center gap-2 pl-4 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <div className="w-8 h-8 bg-gradient-to-tr from-fuchsia-600 to-orange-500 rounded-full flex items-center justify-center rotate-3 group-hover:rotate-12 transition-transform shadow-[0_0_15px_rgba(217,70,239,0.4)]">
               <Zap size={16} className="text-white fill-white" />
             </div>
@@ -45,12 +66,15 @@ export default function TitanGamerLP() {
           </div>
           
           <div className="hidden md:flex items-center gap-8 text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">
-            <a href="#specs" className="hover:text-white transition-colors">Hardware</a>
-            <a href="#gaming" className="hover:text-white transition-colors">Performance</a>
-            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+            <button onClick={() => scrollToSection('specs')} className="hover:text-white transition-colors">Hardware</button>
+            <button onClick={() => scrollToSection('gaming')} className="hover:text-white transition-colors">Performance</button>
+            <button onClick={() => scrollToSection('faq')} className="hover:text-white transition-colors">FAQ</button>
           </div>
 
-          <button className="bg-gradient-to-r from-fuchsia-600 to-orange-500 text-white px-6 py-2.5 rounded-full font-black text-xs uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+          <button 
+            onClick={() => scrollToSection('buy')}
+            className="bg-gradient-to-r from-fuchsia-600 to-orange-500 text-white px-6 py-2.5 rounded-full font-black text-xs uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(217,70,239,0.3)]"
+          >
             Comprar Agora
           </button>
         </nav>
@@ -60,10 +84,7 @@ export default function TitanGamerLP() {
       <section className="relative pt-32 pb-10 px-6 max-w-7xl mx-auto flex flex-col items-center">
         
         {/* 1. O NOTEBOOK NO TOPO */}
-        <motion.div 
-          style={{ y: laptopY, rotateX: laptopRotate, perspective: "1200px" }}
-          className="relative w-full max-w-[900px] z-10"
-        >
+        <motion.div style={{ y: laptopY, rotateX: laptopRotate, perspective: "1200px" }} className="relative w-full max-w-[900px] z-10">
           <motion.div animate={{ y: [-10, 10, -10] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }} className="relative w-full flex justify-center">
             <div className="absolute top-[50%] w-[70%] h-[30%] bg-gradient-to-r from-fuchsia-500/30 via-orange-500/20 to-transparent blur-[100px] pointer-events-none" />
             <Image src="/titan-gamer-lp/laptop2.png" alt="TitanPro X-14" width={1400} height={900} quality={100} className="drop-shadow-[0_40px_60px_rgba(0,0,0,0.8)] object-contain scale-100 lg:scale-105" priority />
@@ -72,21 +93,13 @@ export default function TitanGamerLP() {
 
         {/* 2. O TEXTO SOBREPOSTO */}
         <div className="relative z-20 -mt-20 sm:-mt-32 lg:-mt-40 text-center max-w-5xl">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-bold tracking-[0.3em] uppercase mb-6 backdrop-blur-sm"
-          >
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-bold tracking-[0.3em] uppercase mb-6 backdrop-blur-sm">
             <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span> Lote 1 Liberado
           </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-8xl lg:text-[11rem] font-black tracking-tighter leading-[0.8] mb-8"
-          >
+          <motion.h1 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }} className="text-6xl md:text-8xl lg:text-[11rem] font-black tracking-tighter leading-[0.8] mb-8">
             FORÇA <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-zinc-400 to-zinc-600 drop-shadow-2xl">
-              BRUTA.
-            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-zinc-400 to-zinc-600 drop-shadow-2xl">BRUTA.</span>
           </motion.h1>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="space-y-10">
@@ -95,13 +108,22 @@ export default function TitanGamerLP() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
-              <button className="w-full sm:w-auto bg-fuchsia-600 text-white px-10 py-5 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-fuchsia-500 transition-all shadow-[0_0_40px_rgba(217,70,239,0.3)]">
+              <button 
+                onClick={() => scrollToSection('buy')}
+                className="w-full sm:w-auto bg-fuchsia-600 text-white px-10 py-5 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-fuchsia-500 transition-all shadow-[0_0_40px_rgba(217,70,239,0.3)]"
+              >
                 Comprar Agora
               </button>
-              <div className="flex flex-col text-left">
-                <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">Restam apenas</span>
-                <span className="text-orange-500 font-black text-xl leading-none">143 unidades</span>
-              </div>
+              <button 
+                onClick={() => scrollToSection('gaming')}
+                className="w-full sm:w-auto bg-white/5 border border-white/10 text-white px-10 py-5 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-white/10 transition-all"
+              >
+                Ver Benchmarks
+              </button>
+            </div>
+            <div className="flex flex-col text-center">
+               <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">Restam apenas</span>
+               <span className="text-orange-500 font-black text-xl leading-none">143 unidades</span>
             </div>
           </motion.div>
         </div>
@@ -119,28 +141,18 @@ export default function TitanGamerLP() {
       {/* ================= EXPERIÊNCIA GAMER (Cinematográfica) ================= */}
       <section id="gaming" className="relative py-32 px-6 max-w-7xl mx-auto z-30">
         <div className="mb-12 text-center lg:text-left">
-          <h2 className="text-4xl lg:text-6xl font-black tracking-tight text-white mb-4">
-            Feito para esmagar os <br /> requisitos recomendados.
-          </h2>
-          <p className="text-zinc-400 text-lg max-w-xl">
-            Com a série RTX 40 acionada pelo DLSS 3 e Frame Generation, o TitanPro X-14 entrega taxas de quadros absurdas mesmo com Ray Tracing no máximo.
-          </p>
+          <h2 className="text-4xl lg:text-6xl font-black tracking-tight text-white mb-4">Feito para esmagar os <br /> requisitos recomendados.</h2>
+          <p className="text-zinc-400 text-lg max-w-xl">Com a série RTX 40 acionada pelo DLSS 3 e Frame Generation, o TitanPro X-14 entrega taxas de quadros absurdas mesmo com Ray Tracing no máximo.</p>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}
-          className="relative w-full aspect-[4/3] lg:aspect-[21/9] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group"
-        >
+        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} className="relative w-full aspect-[4/3] lg:aspect-[21/9] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group">
           <div className="absolute inset-0 bg-zinc-900 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070')] bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 opacity-60" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
           <div className="absolute inset-0 p-6 md:p-12 flex flex-col justify-end">
             <div className="flex flex-wrap gap-4">
-              
               <div className="bg-black/60 backdrop-blur-md border border-white/10 p-4 rounded-2xl flex items-center gap-4 hover:border-orange-500/50 transition-colors cursor-default">
-                <div className="bg-orange-500/20 p-3 rounded-xl border border-orange-500/30">
-                  <Swords size={24} className="text-orange-500" />
-                </div>
+                <div className="bg-orange-500/20 p-3 rounded-xl border border-orange-500/30"><Swords size={24} className="text-orange-500" /></div>
                 <div>
                   <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Cyberpunk 2077 • RT Overdrive</div>
                   <div className="text-3xl font-black text-white">115 <span className="text-sm font-medium text-orange-500">FPS</span></div>
@@ -148,15 +160,12 @@ export default function TitanGamerLP() {
               </div>
 
               <div className="bg-black/60 backdrop-blur-md border border-white/10 p-4 rounded-2xl flex items-center gap-4 hover:border-fuchsia-500/50 transition-colors cursor-default">
-                <div className="bg-fuchsia-500/20 p-3 rounded-xl border border-fuchsia-500/30">
-                  <Crosshair size={24} className="text-fuchsia-500" />
-                </div>
+                <div className="bg-fuchsia-500/20 p-3 rounded-xl border border-fuchsia-500/30"><Crosshair size={24} className="text-fuchsia-500" /></div>
                 <div>
                   <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1">Counter-Strike 2 • Ultra/Competitivo</div>
                   <div className="text-3xl font-black text-white">420+ <span className="text-sm font-medium text-fuchsia-500">FPS</span></div>
                 </div>
               </div>
-
             </div>
           </div>
         </motion.div>
@@ -169,35 +178,13 @@ export default function TitanGamerLP() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-bold tracking-[0.3em] uppercase mb-6">
-                Exclusivo Lote 1
-              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-bold tracking-[0.3em] uppercase mb-6">Exclusivo Lote 1</div>
               <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">Kit Founder's Edition. <br/> Seu arsenal completo.</h2>
-              <p className="text-zinc-400 text-lg mb-8">
-                Adquirindo hoje, você não leva apenas o notebook mais rápido do mundo. Garantimos um kit de acessórios premium para você já sair jogando, de graça.
-              </p>
+              <p className="text-zinc-400 text-lg mb-8">Adquirindo hoje, você não leva apenas o notebook mais rápido do mundo. Garantimos um kit de acessórios premium para você já sair jogando, de graça.</p>
               <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <CheckCircle2 className="text-fuchsia-500 mt-1 shrink-0" />
-                  <div>
-                    <h4 className="text-white font-bold text-lg">Mochila Titan Armor (Valor: R$ 899)</h4>
-                    <p className="text-zinc-500 text-sm">Blindada e à prova d'água, feita sob medida para o X-14.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <CheckCircle2 className="text-fuchsia-500 mt-1 shrink-0" />
-                  <div>
-                    <h4 className="text-white font-bold text-lg">Mouse Pro-Aim Wireless (Valor: R$ 650)</h4>
-                    <p className="text-zinc-500 text-sm">Sensor de 30K DPI e switches ópticos.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <CheckCircle2 className="text-fuchsia-500 mt-1 shrink-0" />
-                  <div>
-                    <h4 className="text-white font-bold text-lg">1 Ano de Xbox Game Pass Ultimate</h4>
-                    <p className="text-zinc-500 text-sm">Centenas de jogos no dia 1 liberados na sua conta.</p>
-                  </div>
-                </li>
+                <li className="flex items-start gap-4"><CheckCircle2 className="text-fuchsia-500 mt-1 shrink-0" /><div><h4 className="text-white font-bold text-lg">Mochila Titan Armor (Valor: R$ 899)</h4><p className="text-zinc-500 text-sm">Blindada e à prova d'água, feita sob medida para o X-14.</p></div></li>
+                <li className="flex items-start gap-4"><CheckCircle2 className="text-fuchsia-500 mt-1 shrink-0" /><div><h4 className="text-white font-bold text-lg">Mouse Pro-Aim Wireless (Valor: R$ 650)</h4><p className="text-zinc-500 text-sm">Sensor de 30K DPI e switches ópticos.</p></div></li>
+                <li className="flex items-start gap-4"><CheckCircle2 className="text-fuchsia-500 mt-1 shrink-0" /><div><h4 className="text-white font-bold text-lg">1 Ano de Xbox Game Pass Ultimate</h4><p className="text-zinc-500 text-sm">Centenas de jogos no dia 1 liberados na sua conta.</p></div></li>
               </ul>
             </div>
             
@@ -205,7 +192,10 @@ export default function TitanGamerLP() {
               <Gift className="text-orange-500 w-16 h-16 mb-4" />
               <h3 className="text-2xl font-bold text-white mb-2">Bônus Inclusos</h3>
               <p className="text-zinc-400 mb-6">Mais de R$ 1.500 em valor adicionado se você comprar hoje.</p>
-              <button className="w-full bg-white text-black px-8 py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-zinc-200 transition-all">
+              <button 
+                onClick={() => scrollToSection('buy')}
+                className="w-full bg-white text-black px-8 py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-zinc-200 transition-all"
+              >
                 Resgatar Meu Kit
               </button>
             </div>
@@ -221,13 +211,11 @@ export default function TitanGamerLP() {
             <h3 className="text-3xl font-black text-white mb-2">RTX 4090 175W</h3>
             <p className="text-zinc-500 font-medium leading-snug">Liberamos a voltagem máxima. Gráficos fotorrealistas e renderização em tempo real sem comprometer os frames.</p>
           </motion.div>
-
           <motion.div whileHover={{ y: -5 }} className="md:col-span-1 rounded-3xl bg-zinc-900/50 border border-white/5 p-10 flex flex-col justify-end">
             <Cpu className="text-fuchsia-500 mb-6" size={40} />
             <h3 className="text-3xl font-black text-white mb-2">i9 Gen 14</h3>
             <p className="text-zinc-500 font-medium italic">O cérebro da operação. 24 núcleos destravados.</p>
           </motion.div>
-
           <motion.div whileHover={{ y: -5 }} className="lg:col-span-1 row-span-1 lg:row-span-2 rounded-3xl bg-gradient-to-br from-fuchsia-600 to-purple-800 p-10 flex flex-col">
             <Monitor className="text-white mb-6" size={40} />
             <div className="mt-auto">
@@ -235,7 +223,6 @@ export default function TitanGamerLP() {
               <p className="text-white/80 text-sm font-bold">A vantagem injusta. Veja os inimigos antes.</p>
             </div>
           </motion.div>
-
           <motion.div whileHover={{ y: -5 }} className="md:col-span-2 rounded-3xl bg-zinc-900/50 border border-white/5 p-10 flex items-center gap-10">
             <div className="flex-1">
               <Wind className="text-cyan-400 mb-6" size={40} />
@@ -243,7 +230,6 @@ export default function TitanGamerLP() {
               <p className="text-zinc-500 font-medium">Dupla câmara de vapor e metal líquido Thermal Grizzly de fábrica para queimar FPS, não a sua mão.</p>
             </div>
           </motion.div>
-
           <motion.div whileHover={{ y: -5 }} className="rounded-3xl bg-zinc-950 border border-white/10 p-10 flex flex-col justify-end group">
              <Wifi className="text-zinc-400 group-hover:text-white transition-colors mb-6" size={40} />
              <h3 className="text-2xl font-black text-white mb-1">WI-FI 7</h3>
@@ -252,7 +238,7 @@ export default function TitanGamerLP() {
         </div>
       </section>
 
-      {/* ================= FAQ (Quebra de Objeções) ================= */}
+      {/* ================= FAQ ================= */}
       <section id="faq" className="relative py-24 px-6 max-w-3xl mx-auto z-30">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-5xl font-black text-white mb-4">Dúvidas Frequentes</h2>
@@ -261,19 +247,13 @@ export default function TitanGamerLP() {
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div 
-              key={index} 
-              className="bg-zinc-900/50 border border-white/5 rounded-2xl overflow-hidden cursor-pointer hover:border-white/10 transition-colors"
-              onClick={() => setOpenFaq(openFaq === index ? null : index)}
-            >
+            <div key={index} className="bg-zinc-900/50 border border-white/5 rounded-2xl overflow-hidden cursor-pointer hover:border-white/10 transition-colors" onClick={() => setOpenFaq(openFaq === index ? null : index)}>
               <div className="p-6 flex items-center justify-between">
                 <h4 className="font-bold text-white text-lg pr-8">{faq.question}</h4>
                 <ChevronDown className={`shrink-0 text-fuchsia-500 transition-transform ${openFaq === index ? 'rotate-180' : ''}`} />
               </div>
               {openFaq === index && (
-                <div className="px-6 pb-6 text-zinc-400 leading-relaxed">
-                  {faq.answer}
-                </div>
+                <div className="px-6 pb-6 text-zinc-400 leading-relaxed">{faq.answer}</div>
               )}
             </div>
           ))}
@@ -302,8 +282,20 @@ export default function TitanGamerLP() {
                  <p className="text-4xl font-black text-white">Por R$ 21.999 <span className="text-sm text-zinc-400 font-medium tracking-normal">à vista</span></p>
                  <p className="text-orange-500 text-sm font-bold mt-1">Ou 12x de R$ 2.083 sem juros</p>
                </div>
-               <button className="bg-gradient-to-r from-fuchsia-600 to-orange-500 text-white px-10 py-5 rounded-xl font-black text-lg uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_40px_rgba(217,70,239,0.4)] whitespace-nowrap">
-                  Finalizar Compra
+               
+               {/* BOTÃO FINAL COM FUNÇÃO DE CHECKOUT E LOADING STATE */}
+               <button 
+                  onClick={handleCheckout}
+                  disabled={isCheckingOut}
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-fuchsia-600 to-orange-500 text-white px-10 py-5 rounded-xl font-black text-lg uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_40px_rgba(217,70,239,0.4)] whitespace-nowrap disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
+               >
+                  {isCheckingOut ? (
+                    <>
+                      <Loader2 className="animate-spin" size={24} /> Processando...
+                    </>
+                  ) : (
+                    "Finalizar Compra"
+                  )}
                </button>
              </div>
           </div>
